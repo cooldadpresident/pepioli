@@ -2,6 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
+const base = import.meta.env.BASE_URL;
+
 export async function getStaticPaths() {
 	const recipes = await getCollection('recipes');
 	return recipes.map((recipe) => ({
@@ -14,32 +16,38 @@ const recipe = Astro.props;
 const { Content } = await recipe.render();
 ---
 
-<Layout title={recipe.data.title} description={recipe.data.description}>
+<Layout title={`${recipe.data.title} - Recept`} description={recipe.data.description}>
 	<article class="max-w-3xl mx-auto">
+        <a href={`${base}recepty`} class="text-rose-600 hover:underline mb-6 inline-block">&larr; Zpět na recepty</a>
+
         <header class="mb-8 text-center">
             <h1 class="text-3xl md:text-4xl font-bold mb-2 text-stone-900">{recipe.data.title}</h1>
             <p class="text-stone-600 italic">{recipe.data.description}</p>
         </header>
 
         {recipe.data.image && (
-            <img src={recipe.data.image} alt={recipe.data.title} class="w-full h-64 object-cover rounded-xl shadow-md mb-8" />
+            <img 
+                src={recipe.data.image} 
+                alt={recipe.data.title} 
+                class="w-full h-64 object-cover rounded-xl shadow-md mb-8" 
+                loading="lazy"
+            />
         )}
 
         <div class="grid md:grid-cols-[1fr_2fr] gap-8">
-            <aside class="bg-stone-50 p-6 rounded-xl h-fit">
-                <h2 class="text-xl font-bold mb-4 text-rose-700 border-b border-rose-200 pb-2">Ingredience</h2>
+            <aside class="bg-gradient-to-br from-rose-50 to-stone-50 p-6 rounded-xl h-fit sticky top-24">
+                <h2 class="text-xl font-bold mb-4 text-rose-700 border-b border-rose-200 pb-2">🥄 Ingredience</h2>
                 <ul class="space-y-2">
                     {recipe.data.ingredients && recipe.data.ingredients.map((item) => (
                         <li class="flex items-start gap-2">
-                            <span class="text-rose-400 mt-1">•</span>
+                            <input type="checkbox" class="mt-1.5 accent-rose-600" aria-label={`Ingredience: ${item}`} />
                             <span>{item}</span>
                         </li>
                     ))}
                 </ul>
             </aside>
             
-            <div class="prose prose-stone prose-rose">
-                <h2 class="text-xl font-bold mb-4 text-stone-800 border-b border-stone-200 pb-2">Postup</h2>
+            <div class="prose prose-stone prose-rose max-w-none">
                 <Content />
             </div>
         </div>

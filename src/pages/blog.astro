@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
+const base = import.meta.env.BASE_URL;
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
@@ -11,29 +12,40 @@ const posts = (await getCollection('blog')).sort(
     <h1 class="text-3xl font-bold mb-8">Blog</h1>
     <p class="mb-4">Zde najdete mé články a myšlenky.</p>
     
-    <div class="bg-rose-50 border border-rose-100 p-6 rounded-lg mb-8">
-        <h2 class="text-xl font-bold text-rose-700 mb-2">Externí články</h2>
-        <p class="text-stone-700 mb-4">Mé starší články si můžete přečíst na webu Kamdu:</p>
-        <a href="https://www.kamdu.cz/blog/" target="_blank" rel="noopener noreferrer" class="text-rose-600 font-medium hover:underline">
-            Přejít na blog Josefíny Povejšilové na Kamdu.cz &rarr;
+    <div class="bg-gradient-to-r from-rose-50 to-stone-50 border border-rose-100 p-6 rounded-xl mb-8">
+        <h2 class="text-xl font-bold text-rose-700 mb-2">📚 Články na Kamdu.cz</h2>
+        <p class="text-stone-700 mb-4">Mé profesionální články o vzdělávání a inspirativních osobnostech najdete na webu Kamdu:</p>
+        <a href="https://www.kamdu.cz/author/josefina_povejsilova/" target="_blank" rel="noopener noreferrer" class="inline-block bg-rose-600 text-white px-6 py-2 rounded-full font-medium hover:bg-rose-700 transition focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2">
+            Navštívit profil na Kamdu.cz &rarr;
         </a>
     </div>
 
     <div class="grid gap-6">
         {posts.map((post) => (
-            <article class="border-b border-stone-100 pb-6">
-                <h2 class="text-2xl font-bold mb-2">
-                    <a href={`/blog/${post.slug}/`} class="hover:text-rose-600 transition">
-                        {post.data.title}
-                    </a>
-                </h2>
-                <time class="text-sm text-stone-500 block mb-2">
-                    {post.data.pubDate.toLocaleDateString('cs-CZ')}
-                </time>
-                <p class="text-stone-600 mb-3">{post.data.description}</p>
-                {post.data.externalLink && (
-                    <span class="text-xs bg-stone-100 text-stone-600 px-2 py-1 rounded">Externí odkaz</span>
-                )}
+            <article class="bg-white rounded-xl shadow-sm hover:shadow-md transition border border-stone-100 p-6">
+                <div class="flex flex-col md:flex-row md:items-start gap-4">
+                    <div class="flex-1">
+                        <h2 class="text-xl font-bold mb-2">
+                            <a 
+                                href={post.data.externalLink || `${base}blog/${post.slug}/`} 
+                                target={post.data.externalLink ? "_blank" : undefined}
+                                rel={post.data.externalLink ? "noopener noreferrer" : undefined}
+                                class="hover:text-rose-600 transition"
+                            >
+                                {post.data.title}
+                            </a>
+                        </h2>
+                        <time class="text-sm text-stone-500 block mb-2">
+                            {post.data.pubDate.toLocaleDateString('cs-CZ')}
+                        </time>
+                        <p class="text-stone-600">{post.data.description}</p>
+                    </div>
+                    {post.data.externalLink && (
+                        <span class="text-xs bg-rose-100 text-rose-600 px-3 py-1 rounded-full font-medium whitespace-nowrap">
+                            Kamdu.cz ↗
+                        </span>
+                    )}
+                </div>
             </article>
         ))}
     </div>

@@ -2,6 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
+const base = import.meta.env.BASE_URL;
+
 export async function getStaticPaths() {
 	const projects = await getCollection('projects');
 	return projects.map((project) => ({
@@ -14,19 +16,41 @@ const project = Astro.props;
 const { Content } = await project.render();
 ---
 
-<Layout title={project.data.title} description={project.data.description}>
-    <article class="prose prose-stone lg:prose-xl mx-auto">
-        <h1 class="text-3xl font-bold mb-4">{project.data.title}</h1>
-        {project.data.image && <img src={project.data.image} alt={project.data.title} class="rounded-xl shadow-md mb-8 w-full" />}
+<Layout title={`${project.data.title} - Projekt`} description={project.data.description}>
+    <article class="max-w-3xl mx-auto">
+        <a href={`${base}projekty`} class="text-rose-600 hover:underline mb-6 inline-block">&larr; Zpět na projekty</a>
+
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold mb-4 text-stone-900">{project.data.title}</h1>
+            <p class="text-stone-600">{project.data.description}</p>
+        </header>
+
+        {project.data.image && (
+            <img 
+                src={project.data.image} 
+                alt={project.data.title} 
+                class="rounded-xl shadow-md mb-8 w-full" 
+                loading="lazy"
+            />
+        )}
         
         {project.data.link && (
-            <div class="mb-6">
-                <a href={project.data.link} target="_blank" class="text-rose-600 font-bold hover:underline">
+            <div class="mb-8">
+                <a 
+                    href={project.data.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="inline-block bg-rose-600 text-white px-6 py-3 rounded-full font-medium hover:bg-rose-700 transition focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2"
+                >
                     Navštívit projekt &rarr;
                 </a>
             </div>
         )}
 
-        <Content />
+        <div class="prose prose-stone prose-rose lg:prose-lg max-w-none">
+            <Content />
+        </div>
+    </article>
+</Layout>
     </article>
 </Layout>

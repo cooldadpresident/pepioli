@@ -1,5 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const base = import.meta.env.BASE_URL;
+const latestPosts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
+const latestRecipes = (await getCollection('recipes')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 2);
 ---
 
 <Layout title="Pepioli - Josefína Povejšilová">
@@ -11,30 +16,94 @@ import Layout from '../layouts/Layout.astro';
 			Osobní prostor pro mé myšlenky, oblíbené recepty a kreativní projekty.
 		</p>
         <div class="flex flex-col md:flex-row justify-center gap-4">
-            <a href="/blog" class="bg-rose-600 text-white px-8 py-3 rounded-full font-medium hover:bg-rose-700 transition shadow-lg hover:shadow-xl">
+            <a href={`${base}blog`} class="bg-rose-600 text-white px-8 py-3 rounded-full font-medium hover:bg-rose-700 transition shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2">
                 Číst Blog
             </a>
-            <a href="/recepty" class="bg-white text-rose-600 border-2 border-rose-100 px-8 py-3 rounded-full font-medium hover:border-rose-200 hover:bg-rose-50 transition">
+            <a href={`${base}recepty`} class="bg-white text-rose-600 border-2 border-rose-100 px-8 py-3 rounded-full font-medium hover:border-rose-200 hover:bg-rose-50 transition focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2">
                 Vařit se mnou
             </a>
         </div>
 	</section>
 
-    <section class="grid md:grid-cols-3 gap-8 mt-16">
-        <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition border border-stone-100">
-            <h2 class="text-2xl font-bold mb-3 text-stone-800">📝 Blog</h2>
+    <!-- Kamdu.cz Banner -->
+    <section class="bg-gradient-to-r from-rose-50 to-stone-50 border border-rose-100 rounded-2xl p-6 md:p-8 mb-12">
+        <div class="flex flex-col md:flex-row items-center gap-4">
+            <div class="flex-1">
+                <h2 class="text-xl font-bold text-stone-800 mb-2">📚 Mé články na Kamdu.cz</h2>
+                <p class="text-stone-600">Přečtěte si mé profesionální články o vzdělávání, koučinku a inspirativních osobnostech.</p>
+            </div>
+            <a href="https://www.kamdu.cz/author/josefina_povejsilova/" target="_blank" rel="noopener noreferrer" class="bg-rose-600 text-white px-6 py-3 rounded-full font-medium hover:bg-rose-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2">
+                Navštívit Kamdu.cz &rarr;
+            </a>
+        </div>
+    </section>
+
+    <!-- Latest Posts -->
+    <section class="mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-stone-800">Nejnovější články</h2>
+        <div class="grid gap-4">
+            {latestPosts.map((post) => (
+                <article class="bg-white p-5 rounded-xl shadow-sm hover:shadow-md transition border border-stone-100 flex flex-col md:flex-row md:items-center gap-4">
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold text-stone-800 hover:text-rose-600">
+                            <a href={post.data.externalLink || `${base}blog/${post.slug}/`} target={post.data.externalLink ? "_blank" : undefined} rel={post.data.externalLink ? "noopener noreferrer" : undefined}>
+                                {post.data.title}
+                            </a>
+                        </h3>
+                        <p class="text-sm text-stone-500 mt-1">{post.data.description}</p>
+                    </div>
+                    <time class="text-xs text-stone-400 whitespace-nowrap">{post.data.pubDate.toLocaleDateString('cs-CZ')}</time>
+                    {post.data.externalLink && <span class="text-xs bg-rose-100 text-rose-600 px-2 py-1 rounded">Kamdu.cz</span>}
+                </article>
+            ))}
+        </div>
+        <div class="mt-4 text-center">
+            <a href={`${base}blog`} class="text-rose-600 font-medium hover:underline">Všechny články &rarr;</a>
+        </div>
+    </section>
+
+    <!-- Latest Recipes -->
+    <section class="mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-stone-800">Nejnovější recepty</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            {latestRecipes.map((recipe) => (
+                <article class="bg-white rounded-xl shadow-sm hover:shadow-md transition border border-stone-100 overflow-hidden">
+                    <div class="h-40 bg-gradient-to-br from-rose-100 to-stone-100 flex items-center justify-center">
+                        {recipe.data.image ? (
+                            <img src={recipe.data.image} alt={recipe.data.title} class="w-full h-full object-cover" loading="lazy" />
+                        ) : (
+                            <span class="text-4xl">🍽️</span>
+                        )}
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-bold text-stone-800 mb-2">{recipe.data.title}</h3>
+                        <p class="text-sm text-stone-600 mb-3">{recipe.data.description}</p>
+                        <a href={`${base}recepty/${recipe.slug}/`} class="text-rose-600 font-medium hover:underline text-sm">Zobrazit recept &rarr;</a>
+                    </div>
+                </article>
+            ))}
+        </div>
+        <div class="mt-4 text-center">
+            <a href={`${base}recepty`} class="text-rose-600 font-medium hover:underline">Všechny recepty &rarr;</a>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="grid md:grid-cols-3 gap-8">
+        <a href={`${base}blog`} class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition border border-stone-100 group">
+            <h2 class="text-2xl font-bold mb-3 text-stone-800 group-hover:text-rose-600 transition">📝 Blog</h2>
             <p class="text-stone-600 mb-4">Příběhy z cest, každodenní postřehy a myšlenky.</p>
-            <a href="/blog" class="text-rose-600 font-medium hover:underline">Přejít na blog &rarr;</a>
-        </div>
-        <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition border border-stone-100">
-            <h2 class="text-2xl font-bold mb-3 text-stone-800">🍳 Recepty</h2>
+            <span class="text-rose-600 font-medium group-hover:underline">Přejít na blog &rarr;</span>
+        </a>
+        <a href={`${base}recepty`} class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition border border-stone-100 group">
+            <h2 class="text-2xl font-bold mb-3 text-stone-800 group-hover:text-rose-600 transition">🍳 Recepty</h2>
             <p class="text-stone-600 mb-4">Sbírka mých nejoblíbenějších jídel a sladkostí.</p>
-            <a href="/recepty" class="text-rose-600 font-medium hover:underline">Prohlédnout recepty &rarr;</a>
-        </div>
-        <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition border border-stone-100">
-            <h2 class="text-2xl font-bold mb-3 text-stone-800">🎨 Projekty</h2>
+            <span class="text-rose-600 font-medium group-hover:underline">Prohlédnout recepty &rarr;</span>
+        </a>
+        <a href={`${base}projekty`} class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition border border-stone-100 group">
+            <h2 class="text-2xl font-bold mb-3 text-stone-800 group-hover:text-rose-600 transition">🎨 Projekty</h2>
             <p class="text-stone-600 mb-4">Ukázky mé práce a kreativních počinů.</p>
-            <a href="/projekty" class="text-rose-600 font-medium hover:underline">Zobrazit projekty &rarr;</a>
-        </div>
+            <span class="text-rose-600 font-medium group-hover:underline">Zobrazit projekty &rarr;</span>
+        </a>
     </section>
 </Layout>

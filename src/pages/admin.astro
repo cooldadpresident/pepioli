@@ -1,15 +1,23 @@
 <!doctype html>
-<html>
+<html lang="cs">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Content Manager</title>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <title>Administrace - Pepioli</title>
+  <link rel="icon" type="image/svg+xml" href="/pepioli/favicon.svg" />
   <!-- Explicitly link to the config file to avoid path issues -->
   <link href="/pepioli/admin/config.yml" type="text/yaml" rel="cms-config-url">
+  <style>
+    /* Custom branding for the CMS */
+    [data-slate-editor] { min-height: 200px; }
+  </style>
 </head>
 <body>
-  <!-- Include the script that builds the page and powers Netlify CMS -->
+  <!-- Include the script that builds the page and powers Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    // Register a custom preview style
+    CMS.registerPreviewStyle('/pepioli/admin/preview.css');
+  </script>
 </body>
 </html>
