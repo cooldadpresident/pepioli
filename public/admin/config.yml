@@ -1,0 +1,47 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "blog"
+    label: "Blog"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Titulek", name: "title", widget: "string"}
+      - {label: "Datum publikace", name: "pubDate", widget: "datetime"}
+      - {label: "Popis", name: "description", widget: "text"}
+      - {label: "Autor", name: "author", widget: "string", default: "Josefína Povejšilová"}
+      - {label: "Úvodní obrázek", name: "image", widget: "image", required: false}
+      - {label: "Externí odkaz (volitelné)", name: "externalLink", widget: "string", required: false, hint: "Pokud vyplníte, článek bude odkazovat na tuto URL (např. na Kamdu.cz)"}
+      - {label: "Tělo článku", name: "body", widget: "markdown"}
+
+  - name: "recipes"
+    label: "Recepty"
+    folder: "src/content/recipes"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Název receptu", name: "title", widget: "string"}
+      - {label: "Datum přidání", name: "pubDate", widget: "datetime"}
+      - {label: "Krátký popis", name: "description", widget: "text"}
+      - {label: "Fotografie jídla", name: "image", widget: "image", required: false}
+      - {label: "Ingredience", name: "ingredients", widget: "list", field: {label: "Položka", name: "item", widget: "string"}}
+      - {label: "Postup přípravy", name: "body", widget: "markdown"}
+
+  - name: "projects"
+    label: "Projekty"
+    folder: "src/content/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Název projektu", name: "title", widget: "string"}
+      - {label: "Datum", name: "pubDate", widget: "datetime"}
+      - {label: "Popis", name: "description", widget: "text"}
+      - {label: "Obrázek", name: "image", widget: "image", required: false}
+      - {label: "Odkaz na projekt", name: "link", widget: "string", required: false}
+      - {label: "Detail projektu", name: "body", widget: "markdown"}
