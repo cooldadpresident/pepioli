@@ -1,23 +1,39 @@
+---
+// Admin page for Decap CMS
+// For local development: run `npx decap-server` in a separate terminal
+// For production: uses GitHub OAuth
+---
 <!doctype html>
 <html lang="cs">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
   <title>Administrace - Pepioli</title>
   <link rel="icon" type="image/svg+xml" href="/pepioli/favicon.svg" />
-  <!-- Explicitly link to the config file to avoid path issues -->
-  <link href="/pepioli/admin/config.yml" type="text/yaml" rel="cms-config-url">
+  <link href="/pepioli/admin/config.yml" type="text/yaml" rel="cms-config-url" />
   <style>
-    /* Custom branding for the CMS */
     [data-slate-editor] { min-height: 200px; }
+    body { margin: 0; }
   </style>
 </head>
 <body>
-  <!-- Include the script that builds the page and powers Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
-    // Register a custom preview style
+    // Custom preview styles
     CMS.registerPreviewStyle('/pepioli/admin/preview.css');
+    
+    // Czech locale
+    CMS.registerLocale('cs', {
+      app: {
+        header: {
+          content: 'Obsah',
+          workflow: 'Workflow',
+          media: 'Média',
+          quickAdd: 'Rychlé přidání'
+        }
+      }
+    });
   </script>
 </body>
 </html>
