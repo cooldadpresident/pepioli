@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Pepioli - Josefína Povejšilová">
+	<section class="py-12 md:py-20 text-center">
+		<h1 class="text-4xl md:text-6xl font-bold text-stone-900 mb-6">
+			Vítejte na <span class="text-rose-600">Pepioli</span>
+		</h1>
+		<p class="text-xl text-stone-600 max-w-2xl mx-auto mb-10">
+			Osobní prostor pro mé myšlenky, oblíbené recepty a kreativní projekty.
+		</p>
+        <div class="flex flex-col md:flex-row justify-center gap-4">
+            <a href="/blog" class="bg-rose-600 text-white px-8 py-3 rounded-full font-medium hover:bg-rose-700 transition shadow-lg hover:shadow-xl">
+                Číst Blog
+            </a>
+            <a href="/recepty" class="bg-white text-rose-600 border-2 border-rose-100 px-8 py-3 rounded-full font-medium hover:border-rose-200 hover:bg-rose-50 transition">
+                Vařit se mnou
+            </a>
+        </div>
+	</section>
+
+    <section class="grid md:grid-cols-3 gap-8 mt-16">
+        <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition border border-stone-100">
+            <h2 class="text-2xl font-bold mb-3 text-stone-800">📝 Blog</h2>
+            <p class="text-stone-600 mb-4">Příběhy z cest, každodenní postřehy a myšlenky.</p>
+            <a href="/blog" class="text-rose-600 font-medium hover:underline">Přejít na blog &rarr;</a>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition border border-stone-100">
+            <h2 class="text-2xl font-bold mb-3 text-stone-800">🍳 Recepty</h2>
+            <p class="text-stone-600 mb-4">Sbírka mých nejoblíbenějších jídel a sladkostí.</p>
+            <a href="/recepty" class="text-rose-600 font-medium hover:underline">Prohlédnout recepty &rarr;</a>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition border border-stone-100">
+            <h2 class="text-2xl font-bold mb-3 text-stone-800">🎨 Projekty</h2>
+            <p class="text-stone-600 mb-4">Ukázky mé práce a kreativních počinů.</p>
+            <a href="/projekty" class="text-rose-600 font-medium hover:underline">Zobrazit projekty &rarr;</a>
+        </div>
+    </section>
+</Layout>
