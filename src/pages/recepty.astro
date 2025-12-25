@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Recepty - Pepioli">
+    <h1 class="text-3xl font-bold mb-8">Recepty</h1>
+    <p class="mb-8 text-stone-600">Mé oblíbené recepty, které ráda vařím pro rodinu a přátele.</p>
+
+    <div class="grid md:grid-cols-2 gap-6">
+        <!-- Placeholder recipe card -->
+        <div class="bg-white rounded-xl shadow-sm border border-stone-100 overflow-hidden hover:shadow-md transition">
+            <div class="h-48 bg-stone-200 flex items-center justify-center text-stone-400">
+                <span>Fotografie jídla</span>
+            </div>
+            <div class="p-6">
+                <h2 class="text-xl font-bold mb-2 text-stone-800">Babiččina bábovka</h2>
+                <p class="text-stone-600 text-sm mb-4">Tradiční recept na vláčnou bábovku, která nikdy nezklame.</p>
+                <a href="#" class="text-rose-600 font-medium hover:underline">Zobrazit recept &rarr;</a>
+            </div>
+        </div>
+    </div>
+</Layout>
