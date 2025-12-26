@@ -1,7 +1,5 @@
 ---
-// Admin page for Decap CMS
-// For local development: run `npx decap-server` in a separate terminal
-// For production: uses GitHub OAuth
+// Test admin page using test-repo backend (no authentication needed)
 const base = import.meta.env.BASE_URL;
 ---
 <!doctype html>
@@ -9,32 +7,25 @@ const base = import.meta.env.BASE_URL;
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex, nofollow" />
-  <title>Administrace - Pepioli</title>
-  <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+  <title>Test Admin - Pepioli</title>
   <style>
-    [data-slate-editor] { min-height: 200px; }
-    body { margin: 0; }
+    body { margin: 0; font-family: system-ui, sans-serif; }
   </style>
 </head>
 <body>
   <div id="nc-root"></div>
   <script is:inline src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <script is:inline define:vars={{ base }}>
-    // Initialize CMS with config
+  <script is:inline>
+    // Use test-repo backend - no authentication needed!
     window.CMS_MANUAL_INIT = true;
-
+    
     CMS.init({
       config: {
         backend: {
-          name: 'github',
-          repo: 'coldpres/pepioli',
-          branch: 'main',
+          name: 'test-repo'
         },
-        local_backend: true,
-        site_url: 'https://coldpres.github.io/pepioli',
         media_folder: 'public/images/uploads',
-        public_folder: `${base}images/uploads`,
+        public_folder: '/images/uploads',
         collections: [
           {
             name: 'blog',
@@ -77,7 +68,6 @@ const base = import.meta.env.BASE_URL;
               { label: 'Název', name: 'title', widget: 'string' },
               { label: 'Popis', name: 'description', widget: 'text' },
               { label: 'Odkaz', name: 'link', widget: 'string', required: false },
-              { label: 'Obrázek', name: 'image', widget: 'image', required: false },
               { label: 'Detail', name: 'body', widget: 'markdown' }
             ]
           }
