@@ -18,7 +18,7 @@ const { Content } = await recipe.render();
 
 <Layout title={`${recipe.data.title} - Recept`} description={recipe.data.description}>
 	<article class="max-w-3xl mx-auto">
-        <a href={`${base}recepty`} class="text-rose-600 hover:underline mb-6 inline-block">&larr; Zpět na recepty</a>
+        <a href={`${base}recepty`} class="text-pink-600 hover:underline mb-6 inline-block">&larr; Zpět na recepty</a>
 
         <header class="mb-8 text-center">
             <h1 class="text-3xl md:text-4xl font-bold mb-2 text-stone-900">{recipe.data.title}</h1>
@@ -36,18 +36,18 @@ const { Content } = await recipe.render();
 
         <div class="grid md:grid-cols-[1fr_2fr] gap-8">
             <aside class="bg-gradient-to-br from-rose-50 to-stone-50 p-6 rounded-xl h-fit sticky top-24">
-                <h2 class="text-xl font-bold mb-4 text-rose-700 border-b border-rose-200 pb-2">🥄 Ingredience</h2>
+                <h2 class="text-xl font-bold mb-4 text-pink-700 border-b border-pink-200 pb-2">🥄 Ingredience</h2>
                 <ul class="space-y-2">
                     {recipe.data.ingredients && recipe.data.ingredients.map((item) => (
                         <li class="flex items-start gap-2">
-                            <input type="checkbox" class="mt-1.5 accent-rose-600" aria-label={`Ingredience: ${item}`} />
+                            <input type="checkbox" class="mt-1.5 accent-pink-600" aria-label={`Ingredience: ${item}`} />
                             <span>{item}</span>
                         </li>
                     ))}
                 </ul>
             </aside>
             
-            <div class="prose prose-stone prose-rose max-w-none">
+            <div class="prose prose-stone prose-pink max-w-none">
                 <Content />
             </div>
         </div>

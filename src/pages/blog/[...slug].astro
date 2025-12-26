@@ -18,7 +18,7 @@ const { Content } = await post.render();
 
 <Layout title={post.data.title} description={post.data.description}>
 	<article class="max-w-3xl mx-auto">
-        <a href={`${base}blog`} class="text-rose-600 hover:underline mb-6 inline-block">&larr; Zpět na blog</a>
+        <a href={`${base}blog`} class="text-pink-600 hover:underline mb-6 inline-block">&larr; Zpět na blog</a>
         
         <header class="mb-8 text-center">
             <h1 class="text-3xl md:text-4xl font-bold mb-4 text-stone-900">{post.data.title}</h1>
@@ -38,20 +38,20 @@ const { Content } = await post.render();
         )}
         
         {post.data.externalLink && (
-            <div class="bg-gradient-to-r from-rose-50 to-stone-50 border border-rose-100 p-6 rounded-xl mb-8 text-center">
+            <div class="bg-gradient-to-r from-pink-50 to-stone-50 border border-pink-100 p-6 rounded-xl mb-8 text-center">
                 <p class="mb-4 font-medium text-rose-800">Tento článek pokračuje na externím webu:</p>
                 <a 
                     href={post.data.externalLink} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    class="inline-block bg-rose-600 text-white px-8 py-3 rounded-full hover:bg-rose-700 transition font-medium focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2"
+                    class="inline-block bg-pink-600 text-white px-8 py-3 rounded-full hover:bg-pink-700 transition font-medium focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
                 >
                     Číst celý článek na Kamdu.cz &rarr;
                 </a>
             </div>
         )}
 
-        <div class="prose prose-stone prose-rose lg:prose-lg max-w-none">
+        <div class="prose prose-stone prose-pink lg:prose-lg max-w-none">
 		    <Content />
         </div>
 	</article>

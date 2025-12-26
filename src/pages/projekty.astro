@@ -26,12 +26,12 @@ const projects = (await getCollection('projects')).sort(
                         {project.data.pubDate.getFullYear()}
                     </span>
                     {project.data.link && (
-                        <a href={project.data.link} target="_blank" rel="noopener noreferrer" class="bg-rose-100 text-rose-600 px-3 py-1 rounded-full text-xs font-medium hover:bg-rose-200 transition">
+                        <a href={project.data.link} target="_blank" rel="noopener noreferrer" class="bg-pink-100 text-pink-600 px-3 py-1 rounded-full text-xs font-medium hover:bg-pink-200 transition">
                             Odkaz ↗
                         </a>
                     )}
                 </div>
-                <a href={`${base}projekty/${project.slug}/`} class="text-rose-600 font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 rounded">
+                <a href={`${base}projekty/${project.slug}/`} class="text-pink-600 font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 rounded">
                     Více o projektu &rarr;
                 </a>
             </article>

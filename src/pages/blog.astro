@@ -15,7 +15,7 @@ const posts = (await getCollection('blog')).sort(
     <div class="bg-gradient-to-r from-rose-50 to-stone-50 border border-rose-100 p-6 md:p-8 rounded-2xl mb-12">
         <h2 class="text-xl md:text-2xl font-bold text-rose-700 mb-2">📚 Články na Kamdu.cz</h2>
         <p class="text-stone-700 mb-4 md:mb-6">Mé profesionální články o vzdělávání a inspirativních osobnostech najdete na webu Kamdu:</p>
-        <a href="https://www.kamdu.cz/author/josefina_povejsilova/" target="_blank" rel="noopener noreferrer" class="inline-block bg-rose-600 text-white px-6 py-2 rounded-full font-medium hover:bg-rose-700 transition focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2">
+        <a href="https://www.kamdu.cz/author/josefina_povejsilova/" target="_blank" rel="noopener noreferrer" class="inline-block bg-pink-600 text-white px-6 py-2 rounded-full font-medium hover:bg-pink-700 transition focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2">
             Navštívit profil na Kamdu.cz &rarr;
         </a>
     </div>
@@ -25,7 +25,7 @@ const posts = (await getCollection('blog')).sort(
             <article class="bg-white rounded-xl shadow-sm hover:shadow-md transition border border-stone-100 p-6 md:p-8 group">
                 <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-6">
                     <div class="flex-1">
-                        <h2 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-rose-600 transition">
+                        <h2 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-pink-600 transition">
                             <a 
                                 href={post.data.externalLink || `${base}blog/${post.slug}/`} 
                                 target={post.data.externalLink ? "_blank" : undefined}
@@ -40,7 +40,7 @@ const posts = (await getCollection('blog')).sort(
                         <p class="text-stone-600 text-sm md:text-base">{post.data.description}</p>
                     </div>
                     {post.data.externalLink && (
-                        <span class="text-xs bg-rose-100 text-rose-600 px-3 py-1 rounded-full font-medium whitespace-nowrap h-fit">
+                        <span class="text-xs bg-pink-100 text-pink-600 px-3 py-1 rounded-full font-medium whitespace-nowrap h-fit">
                             Kamdu.cz ↗
                         </span>
                     )}
