@@ -10,9 +10,6 @@ backend:
   # Uncomment the line below for local testing:
   # name: test-repo
 
-# Enable local backend for development (requires: npx decap-server)
-local_backend: true
-
 site_url: https://pepioli.netlify.app
 display_url: https://pepioli.netlify.app
 logo_url: /favicon.svg
