@@ -21,7 +21,7 @@ const { Content } = await recipe.render();
         <a href={`${base}recepty`} class="text-pink-600 hover:underline mb-6 inline-block">&larr; Zpět na recepty</a>
 
         <header class="mb-8 text-center">
-            <h1 class="text-3xl md:text-4xl font-bold mb-2 text-stone-900">{recipe.data.title}</h1>
+            <h1 class="text-2xl md:text-3xl font-bold mb-2 text-stone-900">{recipe.data.title}</h1>
             <p class="text-stone-600 italic">{recipe.data.description}</p>
         </header>
 
@@ -34,8 +34,8 @@ const { Content } = await recipe.render();
             />
         )}
 
-        <div class="grid md:grid-cols-[1fr_2fr] gap-8">
-            <aside class="bg-gradient-to-br from-rose-50 to-stone-50 p-6 rounded-xl h-fit sticky top-24">
+        <div class="grid md:grid-cols-[1fr_2fr] gap-6 md:gap-8">
+            <aside class="bg-gradient-to-br from-pink-50 to-stone-50 p-5 md:p-6 rounded-xl h-fit sticky top-20 md:top-24">
                 <h2 class="text-xl font-bold mb-4 text-pink-700 border-b border-pink-200 pb-2">🥄 Ingredience</h2>
                 <ul class="space-y-2">
                     {recipe.data.ingredients && recipe.data.ingredients.map((item) => (
@@ -47,7 +47,7 @@ const { Content } = await recipe.render();
                 </ul>
             </aside>
             
-            <div class="prose prose-stone prose-pink max-w-none">
+            <div class="prose prose-stone prose-pink prose-sm md:prose max-w-none">
                 <Content />
             </div>
         </div>

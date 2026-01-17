@@ -21,9 +21,9 @@ const base = import.meta.env.BASE_URL;
 	</head>
 	<body class="bg-stone-50 text-stone-800 font-sans antialiased">
         <header class="bg-white shadow-sm sticky top-0 z-50">
-            <nav class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
-                <a href={`${base}`} class="text-2xl font-bold text-pink-600 hover:text-pink-700 transition" aria-label="Domů">Pepioli 🐾</a>
-                <div class="space-x-6 hidden md:flex" role="navigation" aria-label="Hlavní navigace">
+            <nav class="max-w-4xl mx-auto px-4 py-3 md:py-4 flex justify-between items-center">
+                <a href={`${base}`} class="text-xl md:text-2xl font-bold text-pink-600 hover:text-pink-700 transition" aria-label="Domů">Pepioli 🐾</a>
+                <div class="space-x-5 hidden md:flex text-sm md:text-base" role="navigation" aria-label="Hlavní navigace">
                     <a href={`${base}blog`} class="hover:text-pink-600 transition">Blog</a>
                     <a href={`${base}recepty`} class="hover:text-pink-600 transition">Recepty</a>
                     <a href={`${base}projekty`} class="hover:text-pink-600 transition">Projekty</a>
@@ -43,12 +43,12 @@ const base = import.meta.env.BASE_URL;
             </nav>
             <!-- Mobile menu panel -->
             <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-stone-100 px-4 pb-4" role="navigation" aria-label="Mobilní navigace">
-                <a href={`${base}blog`} class="block py-3 text-stone-700 hover:text-pink-600 transition border-b border-stone-50 focus:outline-none focus:text-pink-600">Blog</a>
-                <a href={`${base}recepty`} class="block py-3 text-stone-700 hover:text-pink-600 transition border-b border-stone-50 focus:outline-none focus:text-pink-600">Recepty</a>
-                <a href={`${base}projekty`} class="block py-3 text-stone-700 hover:text-pink-600 transition focus:outline-none focus:text-pink-600">Projekty</a>
+                <a href={`${base}blog`} class="block py-3 text-sm text-stone-700 hover:text-pink-600 transition border-b border-stone-50 focus:outline-none focus:text-pink-600">Blog</a>
+                <a href={`${base}recepty`} class="block py-3 text-sm text-stone-700 hover:text-pink-600 transition border-b border-stone-50 focus:outline-none focus:text-pink-600">Recepty</a>
+                <a href={`${base}projekty`} class="block py-3 text-sm text-stone-700 hover:text-pink-600 transition focus:outline-none focus:text-pink-600">Projekty</a>
             </div>
         </header>
-		<main class="max-w-4xl mx-auto px-4 md:px-6 py-8 md:py-12 min-h-screen" role="main">
+		<main class="max-w-4xl mx-auto px-4 md:px-6 py-6 md:py-12 min-h-screen" role="main">
 			<slot />
 		</main>
         <footer class="bg-stone-100 py-8 md:py-12 mt-16" role="contentinfo">

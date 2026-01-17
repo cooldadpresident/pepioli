@@ -4,6 +4,5 @@ import tailwind from '@astrojs/tailwind';
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind()],
-  site: 'https://coldpres.github.io',
-  base: '/pepioli',
+  site: 'https://pepioli.netlify.app',
 });

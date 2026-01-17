@@ -9,14 +9,14 @@ const projects = (await getCollection('projects')).sort(
 ---
 
 <Layout title="Projekty - Pepioli">
-    <h1 class="text-4xl md:text-5xl font-bold mb-2">🎨 Projekty</h1>
+    <h1 class="text-3xl md:text-4xl font-bold mb-2">🎨 Projekty</h1>
     <p class="mb-8 md:mb-12 text-stone-600">Ukázky mé práce a kreativních projektů.</p>
 
-    <div class="grid gap-8 md:gap-10">
+    <div class="grid gap-6 md:gap-10">
         {projects.map((project) => (
             <article class="bg-white p-6 rounded-xl shadow-sm border border-stone-100 hover:shadow-md transition">
-                <h2 class="text-2xl font-bold mb-2">
-                    <a href={`${base}projekty/${project.slug}/`} class="hover:text-rose-600 transition">
+                <h2 class="text-xl md:text-2xl font-bold mb-2">
+                    <a href={`${base}projekty/${project.slug}/`} class="hover:text-pink-600 transition">
                         {project.data.title}
                     </a>
                 </h2>
