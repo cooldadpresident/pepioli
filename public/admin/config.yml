@@ -1,91 +1,57 @@
-# Decap CMS Configuration for Pepioli
-# For local development: run `npx decap-server` to enable editing
-# For production: GitHub OAuth handles authentication
-
 backend:
   name: github
-  repo: coldpres/pepioli
+  repo: cooldadpresident/pepioli
   branch: main
-  # Use test-repo for local testing without authentication
-  # Uncomment the line below for local testing:
-  # name: test-repo
 
 site_url: https://pepioli.netlify.app
 display_url: https://pepioli.netlify.app
-logo_url: /favicon.svg
 
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
-# Slug settings for Czech language support
-slug:
-  encoding: "ascii"
-  clean_accents: true
-  sanitize_replacement: "-"
-
 collections:
-  - name: "blog"
-    label: "📝 Blog"
-    label_singular: "Příspěvek"
-    description: "Články a příspěvky na blogu"
+  - name: blog
+    label: Blog
     folder: "src/content/blog"
     create: true
-    delete: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    sortable_fields: ['pubDate', 'title']
-    summary: "{{title}} - {{pubDate | date('DD.MM.YYYY')}}"
-    view_filters:
-      - label: "Externí články"
-        field: externalLink
-        pattern: "."
-      - label: "Vlastní články"
-        field: externalLink
-        pattern: "^$"
     fields:
-      - {label: "Titulek", name: "title", widget: "string", hint: "Název vašeho článku"}
-      - {label: "Datum publikace", name: "pubDate", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD"}
-      - {label: "Popis", name: "description", widget: "text", hint: "Krátký popis článku (zobrazí se v náhledu)"}
-      - {label: "Autor", name: "author", widget: "string", default: "Josefína Povejšilová"}
-      - {label: "Úvodní obrázek", name: "heroImage", widget: "image", required: false, hint: "Hlavní obrázek článku"}
-      - {label: "Externí odkaz", name: "externalLink", widget: "string", required: false, hint: "Pokud vyplníte, článek bude odkazovat na tuto URL (např. na Kamdu.cz)"}
-      - {label: "Tělo článku", name: "body", widget: "markdown"}
+      - { label: Titulek, name: title, widget: string }
+      - { label: Datum publikace, name: pubDate, widget: datetime, format: "YYYY-MM-DD" }
+      - { label: Popis, name: description, widget: text }
+      - { label: Autor, name: author, widget: string, default: "Josefína Povejšilová" }
+      - { label: Úvodní obrázek, name: heroImage, widget: image, required: false }
+      - { label: Externí odkaz, name: externalLink, widget: string, required: false }
+      - { label: Tělo článku, name: body, widget: markdown }
 
-  - name: "recipes"
-    label: "🍳 Recepty"
-    label_singular: "Recept"
-    description: "Oblíbené recepty"
+  - name: recipes
+    label: Recepty
     folder: "src/content/recipes"
     create: true
-    delete: true
     slug: "{{slug}}"
-    sortable_fields: ['pubDate', 'title']
-    summary: "{{title}}"
     fields:
-      - {label: "Název receptu", name: "title", widget: "string"}
-      - {label: "Datum přidání", name: "pubDate", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD"}
-      - {label: "Krátký popis", name: "description", widget: "text", hint: "Popis receptu v pár větách"}
-      - {label: "Fotografie jídla", name: "image", widget: "image", required: false}
-      - label: "Ingredience"
-        name: "ingredients"
-        widget: "list"
-        hint: "Seznam surovin potřebných k přípravě"
-        field: {label: "Položka", name: "item", widget: "string"}
-      - {label: "Postup přípravy", name: "body", widget: "markdown"}
+      - { label: Název receptu, name: title, widget: string }
+      - { label: Datum přidání, name: pubDate, widget: datetime, format: "YYYY-MM-DD" }
+      - { label: Krátký popis, name: description, widget: text }
+      - { label: Fotografie jídla, name: image, widget: image, required: false }
+      - label: Ingredience
+        name: ingredients
+        widget: list
+        field:
+          label: Položka
+          name: item
+          widget: string
+      - { label: Postup přípravy, name: body, widget: markdown }
 
-  - name: "projects"
-    label: "🎨 Projekty"
-    label_singular: "Projekt"
-    description: "Ukázky práce a projektů"
+  - name: projects
+    label: Projekty
     folder: "src/content/projects"
     create: true
-    delete: true
     slug: "{{slug}}"
-    sortable_fields: ['pubDate', 'title']
-    summary: "{{title}}"
     fields:
-      - {label: "Název projektu", name: "title", widget: "string"}
-      - {label: "Datum", name: "pubDate", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD"}
-      - {label: "Popis", name: "description", widget: "text"}
-      - {label: "Obrázek", name: "image", widget: "image", required: false}
-      - {label: "Odkaz na projekt", name: "link", widget: "string", required: false, hint: "URL adresa projektu"}
-      - {label: "Detail projektu", name: "body", widget: "markdown"}
+      - { label: Název projektu, name: title, widget: string }
+      - { label: Datum, name: pubDate, widget: datetime, format: "YYYY-MM-DD" }
+      - { label: Popis, name: description, widget: text }
+      - { label: Obrázek, name: image, widget: image, required: false }
+      - { label: Odkaz na projekt, name: link, widget: string, required: false }
+      - { label: Detail projektu, name: body, widget: markdown }
