@@ -4,8 +4,9 @@ Moderní administrační rozhraní pro správu obsahu.
 
 ## 🔐 Přihlášení
 
-1. **Heslo**: `pepioli2026` (změňte v `admin.js`)
-2. **GitHub Token**: Použijte svůj personal access token s oprávněním `repo`
+Použijte svůj **GitHub Personal Access Token** s oprávněním `repo` (nebo fine-grained token s `Contents: Read and write`).
+
+**Žádné heslo není potřeba** - GitHub token je vaše bezpečnost!
 
 ## 🚀 Přístup
 
@@ -25,11 +26,13 @@ https://cooldadpresident.github.io/pepioli/admin/
 
 ## 🔒 Bezpečnost
 
-**DŮLEŽITÉ**: Změňte výchozí heslo v souboru `admin.js`:
+- ✅ **Pouze GitHub token** - žádné heslo v public repository
+- ✅ Token uložen pouze ve vašem prohlížeči (localStorage)
+- ✅ Nikdy token nesdílejte s nikým
+- ✅ Pokud ho ztratíte, vytvoř nový a smaž starý
+- ✅ Fine-grained token má přístup jen k Pepioli repository
 
-```javascript
-const ADMIN_PASSWORD = 'pepioli2026'; // <-- Změňte toto!
-```
+**Bezpečnost**: Jen ten, kdo má platný GitHub token s přístupem k repository, může editovat obsah.
 
 ## 💾 Jak to funguje
 

@@ -3,25 +3,33 @@ const GITHUB_OWNER = 'cooldadpresident';
 const GITHUB_REPO = 'pepioli';
 const GITHUB_BRANCH = 'main';
 
-// Password (simple client-side auth - for real security, use proper backend)
-const ADMIN_PASSWORD = 'pepioli2026'; // Change this!
-
 let githubToken = null;
 let currentEditingFile = null;
 
 // Login handling
-document.getElementById('loginForm').addEventListener('submit', (e) => {
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const password = document.getElementById('loginPassword').value;
   const token = document.getElementById('githubToken').value;
   
-  if (password === ADMIN_PASSWORD) {
-    githubToken = token;
-    localStorage.setItem('githubToken', token);
-    showAdminScreen();
-    loadAllContent();
-  } else {
-    showAlert('Nesprávné heslo', 'error');
+  // Verify token by trying to access the repo
+  try {
+    const response = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}`, {
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+    
+    if (response.ok) {
+      githubToken = token;
+      localStorage.setItem('githubToken', token);
+      showAdminScreen();
+      loadAllContent();
+    } else {
+      showAlert('Neplatný GitHub token', 'error');
+    }
+  } catch (error) {
+    showAlert('Chyba při ověřování tokenu', 'error');
   }
 });
 

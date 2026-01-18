@@ -11,9 +11,9 @@ https://cooldadpresident.github.io/pepioli/admin/
 
 ## 🔑 Přihlášení
 
-Budeš potřebovat:
-1. **Heslo**: `pepioli2026`
-2. **GitHub Token**: (dá ti táta)
+Budeš potřebovat jen **GitHub Token** (dá ti táta)
+
+Žádné heslo není potřeba - token je tvoje bezpečnost!
 
 ## ✏️ Jak přidat nový článek na blog?
 
