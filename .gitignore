@@ -1,12 +1,9 @@
 # build output
-dist/
-server/
-
-# generated types
-.astro/
+_site/
+.jekyll-cache/
 
 # dependencies
-node_modules/
+Gemfile.lock
 
 # logs
 npm-debug.log*
@@ -22,3 +19,4 @@ pnpm-debug.log*
 
 # macos
 .DS_Store
+.vscode/

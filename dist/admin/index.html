@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="cs" data-astro-cid-2zp6q64z> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex, nofollow"><title>Administrace - Pepioli</title><link rel="icon" type="image/svg+xml" href="/pepiolifavicon.svg"><link rel="stylesheet" href="/pepioli/_astro/admin-test.Tr6pAWMa.css">
+<style>[data-astro-cid-2zp6q64z]{margin:0;padding:0;box-sizing:border-box}html,body,#nc-root[data-astro-cid-2zp6q64z]{height:100%;width:100%}body{font-family:system-ui,-apple-system,sans-serif;background:#f8f7f5;color:#292524}[data-astro-cid-2zp6q64z][data-slate-editor]{min-height:200px}.cms-loading[data-astro-cid-2zp6q64z]{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#f8f7f5;z-index:9999;opacity:1;visibility:visible;transition:opacity .3s,visibility .3s}.cms-loading[data-astro-cid-2zp6q64z].hidden{opacity:0;visibility:hidden}.spinner[data-astro-cid-2zp6q64z]{width:40px;height:40px;border:4px solid #f5f5f4;border-top-color:#db2777;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.loading-text[data-astro-cid-2zp6q64z]{margin-top:16px;font-size:14px;color:#78716c}
+</style></head> <body data-astro-cid-2zp6q64z> <div id="cms-loading" class="cms-loading" data-astro-cid-2zp6q64z> <div style="text-align: center;" data-astro-cid-2zp6q64z> <div class="spinner" data-astro-cid-2zp6q64z></div> <p class="loading-text" data-astro-cid-2zp6q64z>Načítání administrace...</p> </div> </div> <div id="nc-root" data-astro-cid-2zp6q64z></div> <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script> <script>(function(){const base = "/pepioli";
+
+      // Hide loading when CMS initializes
+      window.addEventListener('load', () => {
+        const loading = document.getElementById('cms-loading');
+        if (loading) setTimeout(() => loading.classList.add('hidden'), 500);
+      });
+    
+    // Initialize CMS with config
+    window.CMS_MANUAL_INIT = true;
+
+    CMS.init({
+      config: {
+        backend: {
+          name: 'github',
+          repo: 'coldpres/pepioli',
+          branch: 'main',
+        },
+        local_backend: true,
+        site_url: 'https://coldpres.github.io/pepioli',
+        media_folder: 'public/images/uploads',
+        public_folder: `${base}images/uploads`,
+        collections: [
+          {
+            name: 'blog',
+            label: '📝 Blog',
+            folder: 'src/content/blog',
+            create: true,
+            slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
+            fields: [
+              { label: 'Titulek', name: 'title', widget: 'string' },
+              { label: 'Datum', name: 'pubDate', widget: 'datetime', date_format: 'YYYY-MM-DD', time_format: false, format: 'YYYY-MM-DD' },
+              { label: 'Popis', name: 'description', widget: 'text' },
+              { label: 'Autor', name: 'author', widget: 'string', default: 'Josefína Povejšilová' },
+              { label: 'Externí odkaz', name: 'externalLink', widget: 'string', required: false },
+              { label: 'Obsah', name: 'body', widget: 'markdown' }
+            ]
+          },
+          {
+            name: 'recipes',
+            label: '🍳 Recepty',
+            folder: 'src/content/recipes',
+            create: true,
+            slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
+            fields: [
+              { label: 'Název receptu', name: 'title', widget: 'string' },
+              { label: 'Datum', name: 'pubDate', widget: 'datetime', date_format: 'YYYY-MM-DD', time_format: false, format: 'YYYY-MM-DD' },
+              { label: 'Popis', name: 'description', widget: 'text' },
+              { label: 'Doba přípravy', name: 'prepTime', widget: 'string' },
+              { label: 'Porce', name: 'servings', widget: 'number', value_type: 'int' },
+              { label: 'Ingredience', name: 'ingredients', widget: 'list' },
+              { label: 'Postup', name: 'body', widget: 'markdown' }
+            ]
+          },
+          {
+            name: 'projects',
+            label: '🎯 Projekty',
+            folder: 'src/content/projects',
+            create: true,
+            slug: '{{slug}}',
+            fields: [
+              { label: 'Název', name: 'title', widget: 'string' },
+              { label: 'Popis', name: 'description', widget: 'text' },
+              { label: 'Odkaz', name: 'link', widget: 'string', required: false },
+              { label: 'Obrázek', name: 'image', widget: 'image', required: false },
+              { label: 'Detail', name: 'body', widget: 'markdown' }
+            ]
+          }
+        ]
+      }
+    });
+  })();</script> </body> </html>

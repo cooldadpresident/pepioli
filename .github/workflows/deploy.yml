@@ -1,6 +1,11 @@
-name: Deploy to GitHub Pages
+name: Build and Deploy Jekyll
 
-on:
+
+
+
+
+
+gem "github-pages", "~> 228"gem "jekyll-feed", "~> 0.17"gem "minima", "~> 2.5"gem "jekyll", "~> 4.3"on:
   push:
     branches: [main]
   workflow_dispatch:
@@ -21,25 +26,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          node-version: "20"
-          cache: npm
+          ruby-version: '3.2'
+          bundler-cache: true
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build with Astro
-        run: npm run build
+      - name: Build with Jekyll
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./_site
 
   deploy:
     environment:

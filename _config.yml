@@ -1,0 +1,38 @@
+title: Pepioli
+description: Student community and resources
+baseurl: /pepioli
+url: https://cooldadpresident.github.io
+theme: minima
+
+markdown: kramdown
+
+collections:
+  blog:
+    output: true
+    permalink: /blog/:slug/
+  recipes:
+    output: true
+    permalink: /recipes/:slug/
+  projects:
+    output: true
+    permalink: /projects/:slug/
+
+defaults:
+  - scope:
+      path: ""
+      type: "blog"
+    values:
+      layout: "post"
+      category: "blog"
+  - scope:
+      path: ""
+      type: "recipes"
+    values:
+      layout: "post"
+      category: "recipes"
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "post"
+      category: "projects"
