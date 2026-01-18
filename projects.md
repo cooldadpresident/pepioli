@@ -1,13 +1,10 @@
 ---
 layout: page
-title: Projekty
+title: 🎨 Projekty
 permalink: /projects/
 ---
 
-<div class="page-header">
-  <h1>🎨 Projekty</h1>
-  <p>Ukázky práce a zajímavé projekty</p>
-</div>
+<p class="page-description">Ukázky práce a zajímavé projekty</p>
 
 <div class="card-grid">
 {% for project in site.projects %}

@@ -1,13 +1,10 @@
 ---
 layout: page
-title: Recepty
+title: 🍳 Recepty
 permalink: /recipes/
 ---
 
-<div class="page-header">
-  <h1>🍳 Recepty</h1>
-  <p>Vyzkoušené recepty na oblíbená jídla a sladkosti</p>
-</div>
+<p class="page-description">Vyzkoušené recepty na oblíbená jídla a sladkosti</p>
 
 <div class="card-grid">
 {% for recipe in site.recipes %}

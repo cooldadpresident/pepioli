@@ -1,13 +1,10 @@
 ---
 layout: page
-title: Blog
+title: 📝 Blog
 permalink: /blog/
 ---
 
-<div class="page-header">
-  <h1>📝 Blog</h1>
-  <p>Zkušenosti, tipy a příběhy ze studentského života</p>
-</div>
+<p class="page-description">Zkušenosti, tipy a příběhy ze studentského života</p>
 
 <ul class="post-list">
 {% for post in site.blog %}
