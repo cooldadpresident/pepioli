@@ -1,32 +1,51 @@
 ---
-layout: home
+layout: default
 title: Pepioli
 ---
 
-# Welcome to Pepioli
+# 🎓 Welcome to Pepioli
 
 A student community sharing experiences, recipes, and projects.
 
-## Latest Posts
+---
 
+## 📝 Latest Posts
+
+<ul class="post-list">
 {% for post in site.blog limit: 5 %}
-- [{{ post.title }}]({{ post.url }}) - {{ post.date | date: "%Y-%m-%d" }}
+  <li>
+    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
+  </li>
 {% endfor %}
+</ul>
 
-[View all posts →](/pepioli/blog)
+[View all posts →](/pepioli/blog){:.view-all}
 
-## Recipes
+---
 
+## 🍳 Recipes
+
+<ul class="post-list">
 {% for recipe in site.recipes limit: 5 %}
-- [{{ recipe.title }}]({{ recipe.url }})
+  <li>
+    <a href="{{ recipe.url | relative_url }}">{{ recipe.title }}</a>
+  </li>
 {% endfor %}
+</ul>
 
-[View all recipes →](/pepioli/recipes)
+[View all recipes →](/pepioli/recipes){:.view-all}
 
-## Projects
+---
 
+## 🎨 Projects
+
+<ul class="post-list">
 {% for project in site.projects limit: 5 %}
-- [{{ project.title }}]({{ project.url }})
+  <li>
+    <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
+  </li>
 {% endfor %}
+</ul>
 
-[View all projects →](/pepioli/projects)
+[View all projects →](/pepioli/projects){:.view-all}
