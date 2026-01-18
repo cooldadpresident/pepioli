@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pepioli Admin</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --success: #10b981;
+      --danger: #ef4444;
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --bg: #ffffff;
+      --bg-secondary: #f9fafb;
+      --border: #e5e7eb;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-secondary);
+      color: var(--text);
+    }
+    
+    .login-screen, .admin-screen { display: none; }
+    .login-screen.active, .admin-screen.active { display: block; }
+    
+    /* Login Screen */
+    .login-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .login-box {
+      background: white;
+      padding: 3rem;
+      border-radius: 1rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      width: 100%;
+      max-width: 400px;
+    }
+    
+    .login-box h1 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-size: 2rem;
+    }
+    
+    .login-box p {
+      color: var(--text-light);
+      margin-bottom: 2rem;
+    }
+    
+    /* Admin Screen */
+    .admin-header {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .admin-header h1 {
+      color: var(--primary);
+      font-size: 1.5rem;
+    }
+    
+    .admin-content {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+    
+    .tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--border);
+    }
+    
+    .tab {
+      padding: 1rem 1.5rem;
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    
+    .tab:hover { color: var(--primary); }
+    .tab.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    
+    /* Form Elements */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    
+    input, textarea, select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+    
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+    
+    textarea { min-height: 200px; font-family: monospace; }
+    
+    button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover { background: var(--primary-dark); }
+    
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+    
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+    
+    .btn-secondary {
+      background: var(--bg-secondary);
+      color: var(--text);
+    }
+    
+    /* Post List */
+    .post-list {
+      background: var(--bg);
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+    
+    .post-item {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .post-item:last-child { border-bottom: none; }
+    
+    .post-info h3 {
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+    
+    .post-meta {
+      color: var(--text-light);
+      font-size: 0.875rem;
+    }
+    
+    .post-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .post-actions button {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+    }
+    
+    .editor-container {
+      background: var(--bg);
+      padding: 2rem;
+      border-radius: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .alert {
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .alert-success {
+      background: #d1fae5;
+      color: #065f46;
+    }
+    
+    .alert-error {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <!-- Login Screen -->
+  <div class="login-screen active">
+    <div class="login-container">
+      <div class="login-box">
+        <h1>🎓 Pepioli Admin</h1>
+        <p>Přihlaste se pro správu obsahu</p>
+        
+        <form id="loginForm">
+          <div class="form-group">
+            <label>Heslo</label>
+            <input type="password" id="loginPassword" required>
+          </div>
+          
+          <div class="form-group">
+            <label>GitHub Token</label>
+            <input type="password" id="githubToken" placeholder="ghp_..." required>
+            <small style="color: var(--text-light)">Token pro GitHub API (uložen pouze v prohlížeči)</small>
+          </div>
+          
+          <button type="submit" class="btn-primary" style="width: 100%">Přihlásit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Screen -->
+  <div class="admin-screen">
+    <div class="admin-header">
+      <h1>🎓 Pepioli Admin</h1>
+      <button onclick="logout()" class="btn-secondary">Odhlásit</button>
+    </div>
+    
+    <div class="admin-content">
+      <div id="alertContainer"></div>
+      
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('blog')">📝 Blog</button>
+        <button class="tab" onclick="switchTab('recipes')">🍳 Recepty</button>
+        <button class="tab" onclick="switchTab('projects')">🎨 Projekty</button>
+      </div>
+      
+      <!-- Blog Tab -->
+      <div id="blog" class="tab-content active">
+        <button onclick="showEditor('blog')" class="btn-primary" style="margin-bottom: 1rem">➕ Nový příspěvek</button>
+        
+        <div id="blogEditor" class="editor-container hidden">
+          <h2>Nový příspěvek</h2>
+          <form id="blogForm">
+            <div class="form-group">
+              <label>Název</label>
+              <input type="text" id="blogTitle" required>
+            </div>
+            <div class="form-group">
+              <label>Datum</label>
+              <input type="date" id="blogDate" required>
+            </div>
+            <div class="form-group">
+              <label>Popis</label>
+              <textarea id="blogDescription" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Obsah (Markdown)</label>
+              <textarea id="blogContent" required></textarea>
+            </div>
+            <button type="submit" class="btn-success">💾 Uložit a publikovat</button>
+            <button type="button" onclick="hideEditor('blog')" class="btn-secondary">Zrušit</button>
+          </form>
+        </div>
+        
+        <div id="blogList" class="post-list"></div>
+      </div>
+      
+      <!-- Recipes Tab -->
+      <div id="recipes" class="tab-content">
+        <button onclick="showEditor('recipes')" class="btn-primary" style="margin-bottom: 1rem">➕ Nový recept</button>
+        
+        <div id="recipesEditor" class="editor-container hidden">
+          <h2>Nový recept</h2>
+          <form id="recipesForm">
+            <div class="form-group">
+              <label>Název</label>
+              <input type="text" id="recipesTitle" required>
+            </div>
+            <div class="form-group">
+              <label>Popis</label>
+              <textarea id="recipesDescription" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Obsah (Markdown)</label>
+              <textarea id="recipesContent" required></textarea>
+            </div>
+            <button type="submit" class="btn-success">💾 Uložit a publikovat</button>
+            <button type="button" onclick="hideEditor('recipes')" class="btn-secondary">Zrušit</button>
+          </form>
+        </div>
+        
+        <div id="recipesList" class="post-list"></div>
+      </div>
+      
+      <!-- Projects Tab -->
+      <div id="projects" class="tab-content">
+        <button onclick="showEditor('projects')" class="btn-primary" style="margin-bottom: 1rem">➕ Nový projekt</button>
+        
+        <div id="projectsEditor" class="editor-container hidden">
+          <h2>Nový projekt</h2>
+          <form id="projectsForm">
+            <div class="form-group">
+              <label>Název</label>
+              <input type="text" id="projectsTitle" required>
+            </div>
+            <div class="form-group">
+              <label>Popis</label>
+              <textarea id="projectsDescription" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Obsah (Markdown)</label>
+              <textarea id="projectsContent" required></textarea>
+            </div>
+            <button type="submit" class="btn-success">💾 Uložit a publikovat</button>
+            <button type="button" onclick="hideEditor('projects')" class="btn-secondary">Zrušit</button>
+          </form>
+        </div>
+        
+        <div id="projectsList" class="post-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
