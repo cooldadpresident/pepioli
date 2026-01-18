@@ -18,11 +18,11 @@ export async function handler(event) {
 
   try {
     const body = JSON.parse(event.body);
-    const { password, contentType, title, date, description, content } = body;
+    const { contentType, title, date, description, content } = body;
 
-    // Verify password
-    if (password !== EDITOR_PASSWORD) {
-      return { statusCode: 401, body: JSON.stringify({ error: 'Invalid password' }) };
+    // Validate required fields
+    if (!contentType || !title || !date || !description || !content) {
+      return { statusCode: 400, body: JSON.stringify({ error: 'Missing required fields' }) };
     }
 
     // Build file path and name
@@ -36,6 +36,8 @@ export async function handler(event) {
     } else if (contentType === 'projects') {
       fileName = `${title.toLowerCase().replace(/\s+/g, '-')}.md`;
       filePath = `src/content/projects/${fileName}`;
+    } else {
+      return { statusCode: 400, body: JSON.stringify({ error: 'Invalid content type' }) };
     }
 
     // Build file content with frontmatter

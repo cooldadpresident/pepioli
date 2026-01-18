@@ -176,7 +176,6 @@
         const resp = await fetch('/.netlify/functions/publish-content', {
           method: 'POST',
           body: JSON.stringify({
-            password: 'authenticated',
             contentType: document.getElementById('contentType').value,
             title: document.getElementById('title').value,
             date: document.getElementById('date').value,
@@ -193,7 +192,7 @@
           document.getElementById('editorForm').reset();
           document.getElementById('date').valueAsDate = new Date();
         } else {
-          msgBox.innerHTML = '❌ Error: ' + data.error;
+          msgBox.innerHTML = '❌ Error: ' + (data.error || 'Unknown error');
           msgBox.className = 'message error';
         }
       } catch (error) {
