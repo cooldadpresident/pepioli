@@ -4,228 +4,159 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pepioli Admin</title>
+  <link rel="icon" type="image/svg+xml" href="../public/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
+
     :root {
-      --primary: #6366f1;
-      --primary-dark: #4f46e5;
-      --success: #10b981;
-      --danger: #ef4444;
-      --text: #1f2937;
-      --text-light: #6b7280;
-      --bg: #ffffff;
-      --bg-secondary: #f9fafb;
-      --border: #e5e7eb;
+      --petal-100:#ffe9f0; --petal-200:#ffd4e2;
+      --rose-400:#ef82a8; --rose-500:#e35d8a; --rose-600:#cf4576; --rose-700:#a83561;
+      --leaf-500:#5f9455; --leaf-600:#4a7a44;
+      --success:#3f9d6b; --danger:#e05a6b;
+      --ink:#43272f; --ink-soft:#8a6a75; --ink-faint:#b39aa3;
+      --surface:#ffffff; --surface-2:#fff0f4; --cream:#fff7f4;
+      --border:#f4dae4;
+      --shadow-sm:0 1px 2px rgba(67,39,47,.06),0 2px 4px rgba(207,69,118,.05);
+      --shadow:0 4px 12px -3px rgba(67,39,47,.12),0 2px 6px -3px rgba(207,69,118,.10);
+      --shadow-lg:0 22px 48px -16px rgba(168,53,97,.28),0 8px 18px -10px rgba(67,39,47,.14);
+      --radius:16px;
+      --font-body:'Nunito Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      --font-display:'Fraunces',Georgia,serif;
     }
-    
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--bg-secondary);
-      color: var(--text);
+      font-family: var(--font-body);
+      color: var(--ink);
+      background-color: var(--cream);
+      background-image:
+        radial-gradient(760px 460px at 8% -6%, rgba(255,197,219,.5), transparent 60%),
+        radial-gradient(680px 520px at 104% 4%, rgba(255,222,205,.45), transparent 55%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
     }
-    
+
     .login-screen, .admin-screen { display: none; }
     .login-screen.active, .admin-screen.active { display: block; }
-    
-    /* Login Screen */
+
+    /* Login */
     .login-container {
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      background:
+        radial-gradient(720px 340px at 18% -20%, var(--petal-200), transparent 62%),
+        radial-gradient(620px 360px at 108% 0%, #ffe0d1, transparent 58%),
+        linear-gradient(158deg,#fff2f6 0%,#fdeaef 46%,#fef1ea 100%);
     }
-    
     .login-box {
-      background: white;
-      padding: 3rem;
-      border-radius: 1rem;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      width: 100%;
-      max-width: 400px;
+      background: var(--surface);
+      padding: 2.75rem;
+      border-radius: 24px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      width: 100%; max-width: 420px;
     }
-    
-    .login-box h1 {
-      color: var(--primary);
-      margin-bottom: 0.5rem;
-      font-size: 2rem;
-    }
-    
-    .login-box p {
-      color: var(--text-light);
-      margin-bottom: 2rem;
-    }
-    
-    /* Admin Screen */
+    .login-box h1 { font-family: var(--font-display); color: var(--rose-700); margin-bottom: .4rem; font-size: 1.9rem; font-weight: 600; }
+    .login-box p { color: var(--ink-soft); margin-bottom: 1.75rem; }
+
+    /* Admin */
     .admin-header {
-      background: var(--bg);
+      background: rgba(255,247,244,.85);
+      backdrop-filter: saturate(180%) blur(14px);
       border-bottom: 1px solid var(--border);
       padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
+      position: sticky; top: 0; z-index: 50;
     }
-    
-    .admin-header h1 {
-      color: var(--primary);
-      font-size: 1.5rem;
-    }
-    
-    .admin-content {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 2rem;
-    }
-    
-    .tabs {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      border-bottom: 2px solid var(--border);
-    }
-    
+    .admin-header h1 { font-family: var(--font-display); color: var(--rose-700); font-size: 1.4rem; font-weight: 600; display:flex; align-items:center; gap:.5rem; }
+
+    .admin-content { max-width: 1080px; margin: 2rem auto; padding: 0 1.5rem; }
+
+    .tabs { display: flex; gap: .5rem; margin-bottom: 2rem; border-bottom: 2px solid var(--border); flex-wrap: wrap; }
     .tab {
-      padding: 1rem 1.5rem;
-      background: none;
-      border: none;
-      color: var(--text-light);
-      font-weight: 600;
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      transition: all 0.2s;
+      padding: .8rem 1.35rem; background: none; border: none;
+      color: var(--ink-soft); font-weight: 700; font-family: var(--font-body);
+      cursor: pointer; border-bottom: 3px solid transparent; transition: all .2s;
+      border-radius: 10px 10px 0 0;
     }
-    
-    .tab:hover { color: var(--primary); }
-    .tab.active {
-      color: var(--primary);
-      border-bottom-color: var(--primary);
-    }
-    
+    .tab:hover { color: var(--rose-600); background: var(--surface-2); }
+    .tab.active { color: var(--rose-700); border-bottom-color: var(--rose-500); }
+
     .tab-content { display: none; }
     .tab-content.active { display: block; }
-    
-    /* Form Elements */
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-    
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-    
+
+    .form-group { margin-bottom: 1.35rem; }
+    label { display: block; margin-bottom: .45rem; font-weight: 700; color: var(--ink); font-size: .95rem; }
     input, textarea, select {
-      width: 100%;
-      padding: 0.75rem;
-      border: 1px solid var(--border);
-      border-radius: 0.5rem;
-      font-family: inherit;
-      font-size: 1rem;
+      width: 100%; padding: .8rem .9rem;
+      border: 1px solid var(--border); border-radius: 12px;
+      font-family: inherit; font-size: 1rem; color: var(--ink);
+      background: var(--surface); transition: border-color .2s, box-shadow .2s;
     }
-    
     input:focus, textarea:focus, select:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+      outline: none; border-color: var(--rose-400);
+      box-shadow: 0 0 0 4px rgba(227,93,138,.14);
     }
-    
-    textarea { min-height: 200px; font-family: monospace; }
-    
+    textarea { min-height: 220px; font-family: 'SFMono-Regular', ui-monospace, monospace; line-height: 1.6; resize: vertical; }
+    small { color: var(--ink-faint); }
+
     button {
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 0.5rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
+      padding: .75rem 1.4rem; border: none; border-radius: 999px;
+      font-weight: 700; font-family: var(--font-body); cursor: pointer;
+      transition: transform .2s, box-shadow .2s, filter .2s;
     }
-    
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-    }
-    
-    .btn-primary:hover { background: var(--primary-dark); }
-    
-    .btn-success {
-      background: var(--success);
-      color: white;
-    }
-    
-    .btn-danger {
-      background: var(--danger);
-      color: white;
-    }
-    
-    .btn-secondary {
-      background: var(--bg-secondary);
-      color: var(--text);
-    }
-    
-    /* Post List */
-    .post-list {
-      background: var(--bg);
-      border-radius: 0.5rem;
-      overflow: hidden;
-    }
-    
-    .post-item {
-      padding: 1.5rem;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
+    button:active { transform: translateY(1px); }
+    .btn-primary { background: linear-gradient(135deg,var(--rose-500),var(--rose-600)); color:#fff; box-shadow: 0 12px 30px -8px rgba(227,93,138,.38); }
+    .btn-primary:hover { transform: translateY(-2px); filter: saturate(1.08); }
+    .btn-success { background: linear-gradient(135deg,var(--leaf-500),var(--leaf-600)); color:#fff; box-shadow: 0 12px 26px -10px rgba(74,122,68,.5); }
+    .btn-success:hover { transform: translateY(-2px); }
+    .btn-danger { background: var(--danger); color:#fff; }
+    .btn-secondary { background: var(--surface); color: var(--rose-600); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+    .btn-secondary:hover { background: var(--surface-2); }
+
+    .post-list { background: var(--surface); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
+    .post-item { padding: 1.2rem 1.4rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
     .post-item:last-child { border-bottom: none; }
-    
-    .post-info h3 {
-      color: var(--text);
-      margin-bottom: 0.25rem;
-    }
-    
-    .post-meta {
-      color: var(--text-light);
-      font-size: 0.875rem;
-    }
-    
-    .post-actions {
-      display: flex;
-      gap: 0.5rem;
-    }
-    
-    .post-actions button {
-      padding: 0.5rem 1rem;
-      font-size: 0.875rem;
-    }
-    
-    .editor-container {
-      background: var(--bg);
-      padding: 2rem;
-      border-radius: 0.5rem;
-      margin-bottom: 2rem;
-    }
-    
-    .alert {
-      padding: 1rem;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
-    }
-    
-    .alert-success {
-      background: #d1fae5;
-      color: #065f46;
-    }
-    
-    .alert-error {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-    
+    .post-item:hover { background: var(--surface-2); }
+    .post-info h3 { font-family: var(--font-display); color: var(--ink); margin-bottom: .2rem; font-size: 1.1rem; font-weight: 600; }
+    .post-meta { color: var(--ink-faint); font-size: .85rem; }
+    .post-actions { display: flex; gap: .5rem; }
+    .post-actions button { padding: .5rem 1rem; font-size: .85rem; }
+
+    .editor-container { background: var(--surface); padding: 2rem; border-radius: var(--radius); margin-bottom: 2rem; box-shadow: var(--shadow); border: 1px solid var(--border); }
+    .editor-container h2 { font-family: var(--font-display); color: var(--rose-700); margin-bottom: 1.25rem; font-weight: 600; }
+    .editor-actions { display: flex; gap: .6rem; flex-wrap: wrap; }
+
+    .alert { padding: .9rem 1.1rem; border-radius: 12px; margin-bottom: 1rem; font-weight: 600; box-shadow: var(--shadow-sm); }
+    .alert-success { background: #e4f6ec; color: #216e46; }
+    .alert-error { background: #fde7ea; color: #9c3341; }
+
     .hidden { display: none !important; }
+
+    /* editor toolbar: emoji + image */
+    .editor-toolbar { display: flex; gap: .5rem; margin-bottom: .5rem; flex-wrap: wrap; align-items: center; position: relative; }
+    .tool-btn {
+      padding: .45rem .8rem; font-size: .9rem; border-radius: 10px;
+      background: var(--surface-2); color: var(--rose-700); border: 1px solid var(--border);
+    }
+    .tool-btn:hover { background: var(--petal-100); }
+    .emoji-popover {
+      position: absolute; top: calc(100% + 6px); left: 0; z-index: 20;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+      box-shadow: var(--shadow-lg); padding: .6rem; width: min(320px, 90vw);
+      display: grid; grid-template-columns: repeat(8, 1fr); gap: .15rem;
+    }
+    .emoji-popover button { background: none; border: none; font-size: 1.3rem; padding: .25rem; border-radius: 8px; cursor: pointer; }
+    .emoji-popover button:hover { background: var(--surface-2); }
+
+    .img-preview { margin-top: .6rem; display: none; }
+    .img-preview.show { display: block; }
+    .img-preview img { max-height: 130px; border-radius: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
+    .uploading { color: var(--rose-600); font-weight: 700; font-size: .9rem; }
+    .cover-row { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
+    .cover-row input { flex: 1; min-width: 200px; }
   </style>
 </head>
 <body>
@@ -233,17 +164,16 @@
   <div class="login-screen active">
     <div class="login-container">
       <div class="login-box">
-        <h1>🎓 Pepioli Admin</h1>
+        <h1>🌸 Pepioli Admin</h1>
         <p>Přihlaste se pomocí GitHub tokenu</p>
-        
+
         <form id="loginForm">
           <div class="form-group">
             <label>GitHub Token</label>
             <input type="password" id="githubToken" placeholder="ghp_..." required>
-            <small style="color: var(--text-light)">Token s oprávněním pro cooldadpresident/pepioli repository</small>
+            <small>Token s oprávněním <b>Contents: Read and write</b> pro cooldadpresident/pepioli</small>
           </div>
-          
-          <button type="submit" class="btn-primary" style="width: 100%">Přihlásit</button>
+          <button type="submit" class="btn-primary" style="width:100%">Přihlásit 🔐</button>
         </form>
       </div>
     </div>
@@ -252,101 +182,126 @@
   <!-- Admin Screen -->
   <div class="admin-screen">
     <div class="admin-header">
-      <h1>🎓 Pepioli Admin</h1>
+      <h1>🌸 Pepioli Admin</h1>
       <button onclick="logout()" class="btn-secondary">Odhlásit</button>
     </div>
-    
+
     <div class="admin-content">
       <div id="alertContainer"></div>
-      
+
       <div class="tabs">
-        <button class="tab active" onclick="switchTab('blog')">📝 Blog</button>
-        <button class="tab" onclick="switchTab('recipes')">🍳 Recepty</button>
-        <button class="tab" onclick="switchTab('projects')">🎨 Projekty</button>
+        <button class="tab active" onclick="switchTab('blog', event)">📝 Blog</button>
+        <button class="tab" onclick="switchTab('recipes', event)">🍳 Recepty</button>
+        <button class="tab" onclick="switchTab('projects', event)">🎨 Projekty</button>
       </div>
-      
+
       <!-- Blog Tab -->
       <div id="blog" class="tab-content active">
-        <button onclick="showEditor('blog')" class="btn-primary" style="margin-bottom: 1rem">➕ Nový příspěvek</button>
-        
+        <button onclick="showEditor('blog')" class="btn-primary" style="margin-bottom:1rem">➕ Nový příspěvek</button>
         <div id="blogEditor" class="editor-container hidden">
-          <h2>Nový příspěvek</h2>
+          <h2>Příspěvek</h2>
           <form id="blogForm">
+            <div class="form-group"><label>Název</label><input type="text" id="blogTitle" required></div>
+            <div class="form-group"><label>Datum</label><input type="date" id="blogDate" required></div>
+            <div class="form-group"><label>Autor</label><input type="text" id="blogAuthor" placeholder="Jméno autora"></div>
+            <div class="form-group"><label>Popis</label><textarea id="blogDescription" rows="3" style="min-height:auto"></textarea></div>
             <div class="form-group">
-              <label>Název</label>
-              <input type="text" id="blogTitle" required>
-            </div>
-            <div class="form-group">
-              <label>Datum</label>
-              <input type="date" id="blogDate" required>
-            </div>
-            <div class="form-group">
-              <label>Popis</label>
-              <textarea id="blogDescription" rows="3"></textarea>
+              <label>🖼️ Titulní obrázek</label>
+              <div class="cover-row">
+                <input type="text" id="blogImage" placeholder="/assets/images/... nebo URL">
+                <button type="button" class="tool-btn" onclick="document.getElementById('blogCoverFile').click()">⬆️ Nahrát</button>
+                <input type="file" id="blogCoverFile" accept="image/*" class="hidden" onchange="uploadCover('blog', this)">
+              </div>
+              <div class="img-preview" id="blogImagePreview"><img src="" alt=""></div>
             </div>
             <div class="form-group">
               <label>Obsah (Markdown)</label>
+              <div class="editor-toolbar">
+                <button type="button" class="tool-btn" onclick="toggleEmoji('blog')">😊 Emoji</button>
+                <button type="button" class="tool-btn" onclick="document.getElementById('blogInlineFile').click()">🖼️ Vložit obrázek</button>
+                <input type="file" id="blogInlineFile" accept="image/*" class="hidden" onchange="uploadInline('blog', this)">
+                <span class="uploading hidden" id="blogUploading">Nahrávám…</span>
+              </div>
               <textarea id="blogContent" required></textarea>
             </div>
-            <button type="submit" class="btn-success">💾 Uložit a publikovat</button>
-            <button type="button" onclick="hideEditor('blog')" class="btn-secondary">Zrušit</button>
+            <div class="editor-actions">
+              <button type="submit" class="btn-success">💾 Uložit a publikovat</button>
+              <button type="button" onclick="hideEditor('blog')" class="btn-secondary">Zrušit</button>
+            </div>
           </form>
         </div>
-        
         <div id="blogList" class="post-list"></div>
       </div>
-      
+
       <!-- Recipes Tab -->
       <div id="recipes" class="tab-content">
-        <button onclick="showEditor('recipes')" class="btn-primary" style="margin-bottom: 1rem">➕ Nový recept</button>
-        
+        <button onclick="showEditor('recipes')" class="btn-primary" style="margin-bottom:1rem">➕ Nový recept</button>
         <div id="recipesEditor" class="editor-container hidden">
-          <h2>Nový recept</h2>
+          <h2>Recept</h2>
           <form id="recipesForm">
+            <div class="form-group"><label>Název</label><input type="text" id="recipesTitle" required></div>
+            <div class="form-group"><label>Popis</label><textarea id="recipesDescription" rows="3" style="min-height:auto"></textarea></div>
             <div class="form-group">
-              <label>Název</label>
-              <input type="text" id="recipesTitle" required>
-            </div>
-            <div class="form-group">
-              <label>Popis</label>
-              <textarea id="recipesDescription" rows="3"></textarea>
+              <label>🖼️ Titulní obrázek</label>
+              <div class="cover-row">
+                <input type="text" id="recipesImage" placeholder="/assets/images/... nebo URL">
+                <button type="button" class="tool-btn" onclick="document.getElementById('recipesCoverFile').click()">⬆️ Nahrát</button>
+                <input type="file" id="recipesCoverFile" accept="image/*" class="hidden" onchange="uploadCover('recipes', this)">
+              </div>
+              <div class="img-preview" id="recipesImagePreview"><img src="" alt=""></div>
             </div>
             <div class="form-group">
               <label>Obsah (Markdown)</label>
+              <div class="editor-toolbar">
+                <button type="button" class="tool-btn" onclick="toggleEmoji('recipes')">😊 Emoji</button>
+                <button type="button" class="tool-btn" onclick="document.getElementById('recipesInlineFile').click()">🖼️ Vložit obrázek</button>
+                <input type="file" id="recipesInlineFile" accept="image/*" class="hidden" onchange="uploadInline('recipes', this)">
+                <span class="uploading hidden" id="recipesUploading">Nahrávám…</span>
+              </div>
               <textarea id="recipesContent" required></textarea>
             </div>
-            <button type="submit" class="btn-success">💾 Uložit a publikovat</button>
-            <button type="button" onclick="hideEditor('recipes')" class="btn-secondary">Zrušit</button>
+            <div class="editor-actions">
+              <button type="submit" class="btn-success">💾 Uložit a publikovat</button>
+              <button type="button" onclick="hideEditor('recipes')" class="btn-secondary">Zrušit</button>
+            </div>
           </form>
         </div>
-        
         <div id="recipesList" class="post-list"></div>
       </div>
-      
+
       <!-- Projects Tab -->
       <div id="projects" class="tab-content">
-        <button onclick="showEditor('projects')" class="btn-primary" style="margin-bottom: 1rem">➕ Nový projekt</button>
-        
+        <button onclick="showEditor('projects')" class="btn-primary" style="margin-bottom:1rem">➕ Nový projekt</button>
         <div id="projectsEditor" class="editor-container hidden">
-          <h2>Nový projekt</h2>
+          <h2>Projekt</h2>
           <form id="projectsForm">
+            <div class="form-group"><label>Název</label><input type="text" id="projectsTitle" required></div>
+            <div class="form-group"><label>Popis</label><textarea id="projectsDescription" rows="3" style="min-height:auto"></textarea></div>
             <div class="form-group">
-              <label>Název</label>
-              <input type="text" id="projectsTitle" required>
-            </div>
-            <div class="form-group">
-              <label>Popis</label>
-              <textarea id="projectsDescription" rows="3"></textarea>
+              <label>🖼️ Titulní obrázek</label>
+              <div class="cover-row">
+                <input type="text" id="projectsImage" placeholder="/assets/images/... nebo URL">
+                <button type="button" class="tool-btn" onclick="document.getElementById('projectsCoverFile').click()">⬆️ Nahrát</button>
+                <input type="file" id="projectsCoverFile" accept="image/*" class="hidden" onchange="uploadCover('projects', this)">
+              </div>
+              <div class="img-preview" id="projectsImagePreview"><img src="" alt=""></div>
             </div>
             <div class="form-group">
               <label>Obsah (Markdown)</label>
+              <div class="editor-toolbar">
+                <button type="button" class="tool-btn" onclick="toggleEmoji('projects')">😊 Emoji</button>
+                <button type="button" class="tool-btn" onclick="document.getElementById('projectsInlineFile').click()">🖼️ Vložit obrázek</button>
+                <input type="file" id="projectsInlineFile" accept="image/*" class="hidden" onchange="uploadInline('projects', this)">
+                <span class="uploading hidden" id="projectsUploading">Nahrávám…</span>
+              </div>
               <textarea id="projectsContent" required></textarea>
             </div>
-            <button type="submit" class="btn-success">💾 Uložit a publikovat</button>
-            <button type="button" onclick="hideEditor('projects')" class="btn-secondary">Zrušit</button>
+            <div class="editor-actions">
+              <button type="submit" class="btn-success">💾 Uložit a publikovat</button>
+              <button type="button" onclick="hideEditor('projects')" class="btn-secondary">Zrušit</button>
+            </div>
           </form>
         </div>
-        
         <div id="projectsList" class="post-list"></div>
       </div>
     </div>

@@ -6,6 +6,16 @@ theme: minima
 
 markdown: kramdown
 
+exclude:
+  - node_modules
+  - dist
+  - .astro
+  - NAVOD.md
+  - GITHUB-TOKEN.md
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+
 collections:
   blog:
     output: true

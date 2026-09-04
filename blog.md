@@ -4,15 +4,15 @@ title: 📝 Blog
 permalink: /blog/
 ---
 
-<p class="page-description">Zkušenosti, tipy a příběhy ze studentského života</p>
+<p class="page-description">Zkušenosti, tipy a příběhy ze studentského života.</p>
 
 <ul class="post-list">
 {% for post in site.blog %}
   <li>
     <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
     <div class="post-meta">
-      <span>📅 {{ post.date | date: "%d.%m.%Y" }}</span>
-      {% if post.author %}<span>✍️ {{ post.author }}</span>{% endif %}
+      <span><span class="emoji">📅</span> {{ post.date | date: "%-d. %-m. %Y" }}</span>
+      {% if post.author %}<span><span class="emoji">✍️</span> {{ post.author }}</span>{% endif %}
     </div>
     {% if post.description %}
     <p class="post-excerpt">{{ post.description }}</p>

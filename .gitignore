@@ -1,6 +1,11 @@
 # build output
 _site/
 .jekyll-cache/
+dist/
+.astro/
+
+# node
+node_modules/
 
 # dependencies
 Gemfile.lock
