@@ -4,13 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <link rel="icon" type="image/svg+xml" href="{{ '/public/favicon.svg' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 </head>
 <body>
   <nav class="navbar">
     <div class="container">
-      <a href="{{ '/' | relative_url }}" class="logo">🎓 Pepioli</a>
-      <div class="nav-links">
+      <a href="{{ '/' | relative_url }}" class="logo"><span class="emoji">🌸</span> Pepioli</a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false" onclick="const l=document.getElementById('navLinks');const o=l.classList.toggle('open');this.setAttribute('aria-expanded',o)">☰</button>
+      <div class="nav-links" id="navLinks">
         <a href="{{ '/blog' | relative_url }}">Blog</a>
         <a href="{{ '/recipes' | relative_url }}">Recepty</a>
         <a href="{{ '/projects' | relative_url }}">Projekty</a>
@@ -26,7 +29,9 @@
 
   <footer class="footer">
     <div class="container">
-      <p>&copy; {{ 'now' | date: "%Y" }} Pepioli. Made with ❤️</p>
+      <div class="footer-mark"><span class="emoji">🌸</span> Pepioli</div>
+      <p>Studentská komunita &middot; sdílíme zkušenosti, recepty a projekty</p>
+      <small>&copy; {{ 'now' | date: "%Y" }} Pepioli &middot; Vytvořeno s <span class="emoji">💗</span></small>
     </div>
   </footer>
 </body>

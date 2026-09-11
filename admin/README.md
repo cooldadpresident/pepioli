@@ -18,10 +18,12 @@ https://cooldadpresident.github.io/pepioli/admin/
 ## 📝 Funkce
 
 - ✅ Vytváření nových příspěvků, receptů a projektů
-- ✅ Úprava existujícího obsahu
-- ✅ Smazání příspěvků
+- ✅ Úprava a mazání existujícího obsahu
+- ✅ **Nahrávání obrázků** – titulní obrázek i obrázky přímo do textu (ukládají se do `assets/images/`)
+- ✅ **Emoji výběr** – vložení emoji jedním klikem
+- ✅ Autor a titulní obrázek u příspěvků
 - ✅ Automatický commit do GitHub
-- ✅ Moderní, responsivní design
+- ✅ Moderní, responsivní design v pink-nature stylu
 - ✅ Markdown editor
 
 ## 🔒 Bezpečnost
@@ -36,7 +38,7 @@ https://cooldadpresident.github.io/pepioli/admin/
 
 ## 💾 Jak to funguje
 
-1. Přihlásíte se heslem a GitHub tokenem
+1. Přihlásíte se pouze GitHub tokenem (žádné heslo)
 2. Token se uloží pouze v prohlížeči (localStorage)
 3. Všechny změny se commitují přímo do GitHub
 4. GitHub Pages automaticky publikuje změny

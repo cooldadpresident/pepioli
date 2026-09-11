@@ -2,18 +2,55 @@
 layout: default
 ---
 
+{% assign cover = page.image | default: page.cover | default: page.thumbnail %}
+
+{% if cover %}
+<div class="post-cover">
+  <img src="{% if cover contains '://' %}{{ cover }}{% else %}{{ cover | relative_url }}{% endif %}" alt="{{ page.title | escape }}" loading="lazy">
+</div>
+{% endif %}
+
 <article class="post">
   <header class="post-header">
     <h1 class="post-title">{{ page.title }}</h1>
     <div class="post-meta">
-      <span class="date">📅 {{ page.date | date: "%d.%m.%Y" }}</span>
+      {% if page.category == 'blog' and page.date %}
+      <span class="date"><span class="emoji">📅</span> {{ page.date | date: "%-d. %-m. %Y" }}</span>
+      {% endif %}
       {% if page.author %}
-      <span class="author">✍️ {{ page.author }}</span>
+      <span class="author"><span class="emoji">✍️</span> {{ page.author }}</span>
+      {% endif %}
+      {% if page.category %}
+      <span class="kind"><span class="emoji">{% if page.category == 'recipes' %}🍳{% elsif page.category == 'projects' %}🎨{% else %}📝{% endif %}</span> {{ page.category | capitalize }}</span>
       {% endif %}
     </div>
   </header>
 
+  {% if page.category == 'recipes' and page.ingredients %}
+  <div class="recipe-ingredients">
+    <h3><span class="emoji">🧺</span> Ingredience</h3>
+    <ul>
+      {% for item in page.ingredients %}<li>{{ item }}</li>{% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
   <div class="post-content">
     {{ content }}
   </div>
+
+  {% assign ext = page.link | default: page.externalLink %}
+  {% if ext %}
+  <a class="external-note" href="{{ ext }}" target="_blank" rel="noopener">
+    <span class="emoji">🔗</span> Zobrazit více
+  </a>
+  {% endif %}
+
+  {% if page.category == 'recipes' %}
+    <a class="post-back" href="{{ '/recipes' | relative_url }}"><span class="emoji">←</span> Zpět na recepty</a>
+  {% elsif page.category == 'projects' %}
+    <a class="post-back" href="{{ '/projects' | relative_url }}"><span class="emoji">←</span> Zpět na projekty</a>
+  {% else %}
+    <a class="post-back" href="{{ '/blog' | relative_url }}"><span class="emoji">←</span> Zpět na blog</a>
+  {% endif %}
 </article>
